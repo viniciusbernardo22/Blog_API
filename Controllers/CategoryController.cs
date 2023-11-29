@@ -20,6 +20,7 @@ namespace Blog.Controllers
         public async Task<IActionResult> GetByIdAsync([FromRoute] int id, [FromServices] BlogDataContext context)
         {
             Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
+
             if (selectedCategory != null)
             {
                 return Ok(selectedCategory);
@@ -33,10 +34,46 @@ namespace Blog.Controllers
         [HttpPost("v1/categories")]
         public async Task<IActionResult> PostAsync([FromBody] Category model, [FromServices] BlogDataContext context)
         {
-         await context.Categories.AddAsync(model);
-         await context.SaveChangesAsync();
+            await context.Categories.AddAsync(model);
+            await context.SaveChangesAsync();
 
-         return Created($"v1/categories/${model.Id}", model);
+            return Created($"v1/categories/${model.Id}", model);
+
+        }
+
+        [HttpPut("v1/categories/{id:int}")]
+         public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] Category model,[FromServices] BlogDataContext context)
+         {
+             Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
+
+             if (selectedCategory != null)
+             {
+                 selectedCategory.Name = model.Name;
+                 selectedCategory.Slug = model.Slug;
+
+                 context.Update(selectedCategory);
+                 await context.SaveChangesAsync();
+
+                 return Ok(selectedCategory);
+             }
+
+             return NotFound();
+
+        }
+
+         [HttpDelete("v1/categories/{id:int}")]
+         public async Task<IActionResult> DeleteAsync([FromRoute] int id, [FromServices] BlogDataContext context)
+         {
+             Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
+
+             if (selectedCategory != null)
+             {
+                  context.Categories.Remove(selectedCategory);
+                  await context.SaveChangesAsync();
+                  return Ok(selectedCategory);
+             }
+
+             return NotFound();
         }
     }
 }
