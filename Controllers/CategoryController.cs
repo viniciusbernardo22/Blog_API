@@ -8,12 +8,13 @@ namespace Blog.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
+        private readonly string errorPrefix = "0CCT";
+
         [HttpGet("v1/categories")]
         public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context)
         {
             List<Category> categories = await context.Categories.ToListAsync();
             return Ok(categories);
-
         }
 
         [HttpGet("v1/categories/{id:int}")]
@@ -34,46 +35,86 @@ namespace Blog.Controllers
         [HttpPost("v1/categories")]
         public async Task<IActionResult> PostAsync([FromBody] Category model, [FromServices] BlogDataContext context)
         {
-            await context.Categories.AddAsync(model);
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.Categories.AddAsync(model);
+                await context.SaveChangesAsync();
 
-            return Created($"v1/categories/${model.Id}", model);
+                return Created($"v1/categories/${model.Id}", model);
+            }
+            catch (DbUpdateException exdb)
+            {
+                string exception = $"{errorPrefix}P01 - Não foi possivel incluir a categoria";
 
+                return StatusCode(500, exception);
+            }
+            catch (Exception e)
+            {
+                string exception = $"{errorPrefix}P02 - Falha interna no servidor";
+
+                return StatusCode(500, exception);
+            }
         }
 
         [HttpPut("v1/categories/{id:int}")]
          public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] Category model,[FromServices] BlogDataContext context)
          {
-             Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
-
-             if (selectedCategory != null)
+             
+             try
              {
-                 selectedCategory.Name = model.Name;
-                 selectedCategory.Slug = model.Slug;
+                 Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
 
-                 context.Update(selectedCategory);
-                 await context.SaveChangesAsync();
+                 if (selectedCategory != null)
+                 {
+                     selectedCategory.Name = model.Name;
+                     selectedCategory.Slug = model.Slug;
 
-                 return Ok(selectedCategory);
+                     context.Update(selectedCategory);
+                     await context.SaveChangesAsync();
+
+                     return Ok(selectedCategory);
+
+                 } return NotFound();
+
+            } catch (DbUpdateException e) {
+                 string exception = $"{errorPrefix}P03 - Não foi possivel editar a categoria";
+
+                 return StatusCode(500, exception);
+
+             } catch (Exception e) {
+                 string exception = $"{errorPrefix}P04 - Não foi possivel editar a categoria";
+
+                 return StatusCode(500, exception);
              }
-
-             return NotFound();
 
         }
 
          [HttpDelete("v1/categories/{id:int}")]
          public async Task<IActionResult> DeleteAsync([FromRoute] int id, [FromServices] BlogDataContext context)
          {
-             Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
 
-             if (selectedCategory != null)
+             try
              {
-                  context.Categories.Remove(selectedCategory);
-                  await context.SaveChangesAsync();
-                  return Ok(selectedCategory);
-             }
+                 Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
 
-             return NotFound();
+                 if (selectedCategory != null)
+                 {
+                     context.Categories.Remove(selectedCategory);
+                     await context.SaveChangesAsync();
+                     return Ok(selectedCategory);
+                 }
+
+                 return NotFound();
+            } catch (DbUpdateException e) {
+                string exception = $"{errorPrefix}P05 - Não foi possivel excluir a categoria";
+
+                return StatusCode(500, exception);
+            } catch (Exception e) {
+                string exception = $"{errorPrefix}P06 - Não foi possivel excluir a categoria";
+
+                return StatusCode(500, exception);
+            }
+             
         }
     }
 }
