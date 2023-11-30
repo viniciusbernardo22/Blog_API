@@ -1,4 +1,5 @@
 ﻿using Blog.Data;
+using Blog.Extensions;
 using Blog.Models;
 using Blog.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -14,21 +15,38 @@ namespace Blog.Controllers
         [HttpGet("v1/categories")]
         public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context)
         {
-            List<Category> categories = await context.Categories.ToListAsync();
-            return Ok(categories);
+            try
+            {
+                List<Category> categories = await context.Categories.ToListAsync();
+                return Ok(new ResultViewModel<List<Category>>(categories));
+            }
+            catch (Exception exc)
+            {
+                string exception = $"{errorPrefix}GE01 - Não foi possivel coletar as categorias";
+                return StatusCode(500, new ResultViewModel<string>(exception));
+            }
+            
         }
 
         [HttpGet("v1/categories/{id:int}")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] int id, [FromServices] BlogDataContext context)
         {
-            Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
-
-            if (selectedCategory != null)
+            try
             {
-                return Ok(selectedCategory);
-            }
+                Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
 
-            return NotFound();
+                if (selectedCategory != null)
+                {
+                    return Ok(new ResultViewModel<Category>(selectedCategory));
+                }
+
+                return NotFound(new ResultViewModel<Category>($"Categoria de Id: {id} não foi encontrada."));
+            }
+            catch (Exception exc)
+            {
+                return StatusCode(500, new ResultViewModel<Category>("Falha interna no servidor"));
+            }
+            
 
 
         }
@@ -36,6 +54,8 @@ namespace Blog.Controllers
         [HttpPost("v1/categories")]
         public async Task<IActionResult> PostAsync([FromBody] EditorCategoryViewModel model, [FromServices] BlogDataContext context)
         {
+            if(!ModelState.IsValid) return BadRequest(new ResultViewModel<Category>(ModelState.GetErrors()));
+
             try
             {
                 Category category = new Category
@@ -48,26 +68,26 @@ namespace Blog.Controllers
                 await context.Categories.AddAsync(category);
                 await context.SaveChangesAsync();
 
-                return Created($"v1/categories/${category.Id}", category);
+                return Created($"v1/categories/${category.Id}", new ResultViewModel<Category>(category));
             }
             catch (DbUpdateException exdb)
             {
-                string exception = $"{errorPrefix}P01 - Não foi possivel incluir a categoria";
+                string exception = $"{errorPrefix}P001 - Não foi possivel incluir a categoria";
 
-                return StatusCode(500, exception);
+                return StatusCode(500, new ResultViewModel<Category>(exception));
             }
-            catch (Exception e)
+            catch
             {
-                string exception = $"{errorPrefix}P02 - Falha interna no servidor";
+                string exception = $"{errorPrefix}P002 - Falha interna no servidor";
 
-                return StatusCode(500, exception);
+                return StatusCode(500, new ResultViewModel<Category>(exception));
+
             }
         }
 
         [HttpPut("v1/categories/{id:int}")]
          public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] EditorCategoryViewModel model,[FromServices] BlogDataContext context)
          {
-             
              try
              {
                  Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
@@ -80,20 +100,20 @@ namespace Blog.Controllers
                      context.Update(selectedCategory);
                      await context.SaveChangesAsync();
 
-                     return Ok(selectedCategory);
+                     return Ok(new ResultViewModel<Category>(selectedCategory));
 
-                 } return NotFound();
+                 } return NotFound(new ResultViewModel<Category>("Conteúdo não encontrado"));
 
             } catch (DbUpdateException e) {
-                 string exception = $"{errorPrefix}P03 - Não foi possivel editar a categoria";
+                 string exception = $"{errorPrefix}PU01 - Não foi possivel editar a categoria";
 
-                 return StatusCode(500, exception);
+                 return StatusCode(500, new ResultViewModel<Category>(exception));
 
              } catch (Exception e) {
-                 string exception = $"{errorPrefix}P04 - Não foi possivel editar a categoria";
+                 string exception = $"{errorPrefix}PU02 - Não foi possivel editar a categoria";
 
-                 return StatusCode(500, exception);
-             }
+                return StatusCode(500, new ResultViewModel<Category>(exception));
+            }
 
         }
 
@@ -109,18 +129,18 @@ namespace Blog.Controllers
                  {
                      context.Categories.Remove(selectedCategory);
                      await context.SaveChangesAsync();
-                     return Ok(selectedCategory);
+                     return Ok(new ResultViewModel<Category>(selectedCategory));
                  }
 
-                 return NotFound();
+                 return NotFound(new ResultViewModel<Category>("Conteúdo não encontrado"));
             } catch (DbUpdateException e) {
-                string exception = $"{errorPrefix}P05 - Não foi possivel excluir a categoria";
+                string exception = $"{errorPrefix}DE01 - Não foi possivel excluir a categoria";
 
-                return StatusCode(500, exception);
+                return StatusCode(500, new ResultViewModel<Category>(exception));
             } catch (Exception e) {
-                string exception = $"{errorPrefix}P06 - Não foi possivel excluir a categoria";
+                string exception = $"{errorPrefix}DE02 - Não foi possivel excluir a categoria";
 
-                return StatusCode(500, exception);
+                return StatusCode(500, new ResultViewModel<Category>(exception));
             }
              
         }
