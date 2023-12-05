@@ -5,6 +5,7 @@ using Blog.Services;
 using Blog.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
 using SecureIdentity.Password;
 
@@ -55,10 +56,34 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("v1/account/login")]
-    public IActionResult Login([FromServices] TokenService tokenService)
+    public async Task<IActionResult> Login([FromServices] TokenService tokenService, [FromBody] LoginViewModel model, [FromServices] BlogDataContext context)
     {
-        var token = tokenService.GenerateToken(null);
-        return Ok(token);
+        if(!ModelState.IsValid)
+            return BadRequest(new ResultViewModel<string>(ModelState.GetErrors()));
+
+        var user = await context.Users
+            .AsNoTracking()
+            .Include(x => x.Roles)
+            .FirstOrDefaultAsync(user => user.Email == model.Email);
+
+        var invalidMsg = StatusCode(401, new ResultViewModel<string>("Usuário ou senha inválido."));
+
+        if (user == null)
+            return invalidMsg;
+
+        if (!PasswordHasher.Verify(user.PasswordHash, model.Password))
+            return invalidMsg;
+
+        try
+        {
+            var token = tokenService.GenerateToken(user);
+            return Ok(new ResultViewModel<string>(token, null));
+        }
+        catch
+        {
+            return StatusCode(500, new ResultViewModel<string>("Falha interna no servidor."));
+        }
+
     }
 
 
