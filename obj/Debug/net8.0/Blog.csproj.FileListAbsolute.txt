@@ -131,3 +131,4 @@ C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\refint\Blog.dll
 C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\Blog.pdb
 C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\Blog.genruntimeconfig.cache
 C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\ref\Blog.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\SecureIdentity.dll
