@@ -6,7 +6,8 @@ I'm using this repository to implement a BlogAPI.
 - Docker
 - Docker Compose
 - .NET CORE 8.0
-- MySQL
+- Entity Framework
+- MySQL Server
 - Brevo SMTP Server
 
 😄 Improve this code!
