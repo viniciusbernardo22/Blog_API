@@ -32,6 +32,7 @@ C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Microsoft.IdentityModel.T
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\SecureIdentity.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\System.CodeDom.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\System.Composition.AttributedModel.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\System.Composition.Convention.dll
@@ -131,4 +132,3 @@ C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\refint\Blog.dll
 C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\Blog.pdb
 C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\Blog.genruntimeconfig.cache
 C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\ref\Blog.dll
-C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\SecureIdentity.dll
