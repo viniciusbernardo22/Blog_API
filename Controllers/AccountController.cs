@@ -3,10 +3,8 @@ using Blog.Extensions;
 using Blog.Models;
 using Blog.Services;
 using Blog.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Win32;
 using SecureIdentity.Password;
 
 namespace Blog.Controllers;
@@ -16,7 +14,10 @@ namespace Blog.Controllers;
 public class AccountController : ControllerBase
 {
     [HttpPost("v1/account/register")]
-    public async Task<ActionResult> Register([FromBody] RegisterViewModel model, [FromServices] BlogDataContext context)
+    public async Task<ActionResult> Register(
+        [FromBody] RegisterViewModel model,
+        [FromServices] EmailService emailService, 
+        [FromServices] BlogDataContext context)
     {
         if (!ModelState.IsValid)
             return BadRequest(new ResultViewModel<string>(ModelState.GetErrors()));
@@ -36,6 +37,7 @@ public class AccountController : ControllerBase
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
 
+            emailService.Send(user.Name, user.Email, subject:"Bem vindo e esperimente a linguiça", body: $"Sua senha é <strong>{password}</strong>");
             return Ok(new ResultViewModel<dynamic>(new
             {
                 user = user.Email, password
@@ -56,7 +58,9 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("v1/account/login")]
-    public async Task<IActionResult> Login([FromServices] TokenService tokenService, [FromBody] LoginViewModel model, [FromServices] BlogDataContext context)
+    public async Task<IActionResult> Login([FromServices] TokenService tokenService, 
+        [FromBody] LoginViewModel model, 
+        [FromServices] BlogDataContext context)
     {
         if(!ModelState.IsValid)
             return BadRequest(new ResultViewModel<string>(ModelState.GetErrors()));
@@ -85,6 +89,8 @@ public class AccountController : ControllerBase
         }
 
     }
+
+
 
 
     //[Authorize(Roles = "user")]

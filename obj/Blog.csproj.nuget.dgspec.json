@@ -61,6 +61,10 @@
             "SecureIdentity": {
               "target": "Package",
               "version": "[1.0.4, )"
+            },
+            "sib_api_v3_sdk": {
+              "target": "Package",
+              "version": "[4.0.2, )"
             }
           },
           "imports": [

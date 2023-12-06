@@ -7,7 +7,10 @@ C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Blog.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Blog.pdb
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\FubarCoder.RestSharp.Portable.Core.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\FubarCoder.RestSharp.Portable.HttpClient.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Humanizer.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\JsonSubTypes.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -32,7 +35,9 @@ C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Microsoft.IdentityModel.T
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\SecureIdentity.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\sib_api_v3_sdk.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\System.CodeDom.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\System.Composition.AttributedModel.dll
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\System.Composition.Convention.dll
