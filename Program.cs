@@ -33,11 +33,10 @@ void LoadConfiguration(WebApplication app, IConfiguration config)
     Configuration.JwtKey = app.Configuration.GetValue<string>("JwtKey");
     Configuration.ApiKeyName = app.Configuration.GetValue<string>("ApiKeyName");
     Configuration.ApiKey = app.Configuration.GetValue<string>("ApiKey");
-    var connectionString = config.ConnectionString();
-    var server = config.SmtpHost();
-    var JWT = config.JwtKey();
 
-
+    //var connectionString = config.ConnectionString();
+    //var server = config.SmtpHost();
+    //var JWT = config.JwtKey();
 
     var smtp = new Configuration.SmtpConfiguration();
     app.Configuration.GetSection("Smtp").Bind(smtp);
