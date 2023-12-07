@@ -1,4 +1,5 @@
 
+using System.Drawing;
 using Blog;
 using Blog.Data;
 using Blog.Services;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using Blog.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +16,9 @@ ConfigureMvc(builder);
 ConfigureServices(builder);
 
 var app = builder.Build();
-LoadConfiguration(app);
+
+var configuration = app.Configuration;
+LoadConfiguration(app, configuration);
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -24,11 +28,16 @@ app.MapControllers();
 
 app.Run();
 
-void LoadConfiguration(WebApplication app)
+void LoadConfiguration(WebApplication app, IConfiguration config)
 {
     Configuration.JwtKey = app.Configuration.GetValue<string>("JwtKey");
     Configuration.ApiKeyName = app.Configuration.GetValue<string>("ApiKeyName");
     Configuration.ApiKey = app.Configuration.GetValue<string>("ApiKey");
+    var connectionString = config.ConnectionString();
+    var server = config.SmtpHost();
+    var JWT = config.JwtKey();
+
+
 
     var smtp = new Configuration.SmtpConfiguration();
     app.Configuration.GetSection("Smtp").Bind(smtp);

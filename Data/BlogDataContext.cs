@@ -6,6 +6,7 @@ namespace Blog.Data
 {
     public class BlogDataContext : DbContext
     {
+        private IConfiguration configuration;
         public DbSet<Category> Categories { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<User> Users { get; set; }
