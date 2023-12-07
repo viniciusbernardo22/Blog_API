@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Blog.Models;
 using System.Security.Claims;
-using Blog.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Blog.Extensions
 {

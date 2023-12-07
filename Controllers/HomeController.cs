@@ -12,7 +12,7 @@ namespace Blog.Controllers
         public ActionResult Get()
         {
             return Ok();
-        } 
+        }
 
     }
 }

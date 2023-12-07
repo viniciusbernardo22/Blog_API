@@ -16,7 +16,7 @@ namespace Blog.Controllers
         [HttpGet("v1/categories")]
         public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context)
         {
-           
+
             try
             {
                 List<Category> categories = await context.Categories.ToListAsync();
@@ -27,7 +27,7 @@ namespace Blog.Controllers
                 string exception = $"{errorPrefix}GE01 - Não foi possivel coletar as categorias";
                 return StatusCode(500, new ResultViewModel<string>(exception));
             }
-            
+
         }
 
         [HttpGet("v1/categories/{id:int}")]
@@ -48,7 +48,7 @@ namespace Blog.Controllers
             {
                 return StatusCode(500, new ResultViewModel<Category>("Falha interna no servidor"));
             }
-            
+
 
 
         }
@@ -56,7 +56,7 @@ namespace Blog.Controllers
         [HttpPost("v1/categories")]
         public async Task<IActionResult> PostAsync([FromBody] EditorCategoryViewModel model, [FromServices] BlogDataContext context)
         {
-            if(!ModelState.IsValid) return BadRequest(new ResultViewModel<Category>(ModelState.GetErrors()));
+            if (!ModelState.IsValid) return BadRequest(new ResultViewModel<Category>(ModelState.GetErrors()));
 
             try
             {
@@ -88,31 +88,36 @@ namespace Blog.Controllers
         }
 
         [HttpPut("v1/categories/{id:int}")]
-         public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] EditorCategoryViewModel model,[FromServices] BlogDataContext context)
-         {
-             try
-             {
-                 Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
+        public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] EditorCategoryViewModel model, [FromServices] BlogDataContext context)
+        {
+            try
+            {
+                Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
 
-                 if (selectedCategory != null)
-                 {
-                     selectedCategory.Name = model.Name;
-                     selectedCategory.Slug = model.Slug;
+                if (selectedCategory != null)
+                {
+                    selectedCategory.Name = model.Name;
+                    selectedCategory.Slug = model.Slug;
 
-                     context.Update(selectedCategory);
-                     await context.SaveChangesAsync();
+                    context.Update(selectedCategory);
+                    await context.SaveChangesAsync();
 
-                     return Ok(new ResultViewModel<Category>(selectedCategory));
+                    return Ok(new ResultViewModel<Category>(selectedCategory));
 
-                 } return NotFound(new ResultViewModel<Category>("Conteúdo não encontrado"));
+                }
+                return NotFound(new ResultViewModel<Category>("Conteúdo não encontrado"));
 
-            } catch (DbUpdateException e) {
-                 string exception = $"{errorPrefix}PU01 - Não foi possivel editar a categoria";
+            }
+            catch (DbUpdateException e)
+            {
+                string exception = $"{errorPrefix}PU01 - Não foi possivel editar a categoria";
 
-                 return StatusCode(500, new ResultViewModel<Category>(exception));
+                return StatusCode(500, new ResultViewModel<Category>(exception));
 
-             } catch (Exception e) {
-                 string exception = $"{errorPrefix}PU02 - Não foi possivel editar a categoria";
+            }
+            catch (Exception e)
+            {
+                string exception = $"{errorPrefix}PU02 - Não foi possivel editar a categoria";
 
                 return StatusCode(500, new ResultViewModel<Category>(exception));
             }
@@ -120,31 +125,35 @@ namespace Blog.Controllers
         }
 
         [HttpDelete("v1/categories/{id:int}")]
-         public async Task<IActionResult> DeleteAsync([FromRoute] int id, [FromServices] BlogDataContext context)
-         {
+        public async Task<IActionResult> DeleteAsync([FromRoute] int id, [FromServices] BlogDataContext context)
+        {
 
-             try
-             {
-                 Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
+            try
+            {
+                Category selectedCategory = await context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
 
-                 if (selectedCategory != null)
-                 {
-                     context.Categories.Remove(selectedCategory);
-                     await context.SaveChangesAsync();
-                     return Ok(new ResultViewModel<Category>(selectedCategory));
-                 }
+                if (selectedCategory != null)
+                {
+                    context.Categories.Remove(selectedCategory);
+                    await context.SaveChangesAsync();
+                    return Ok(new ResultViewModel<Category>(selectedCategory));
+                }
 
-                 return NotFound(new ResultViewModel<Category>("Conteúdo não encontrado"));
-            } catch (DbUpdateException e) {
+                return NotFound(new ResultViewModel<Category>("Conteúdo não encontrado"));
+            }
+            catch (DbUpdateException e)
+            {
                 string exception = $"{errorPrefix}DE01 - Não foi possivel excluir a categoria";
 
                 return StatusCode(500, new ResultViewModel<Category>(exception));
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 string exception = $"{errorPrefix}DE02 - Não foi possivel excluir a categoria";
 
                 return StatusCode(500, new ResultViewModel<Category>(exception));
             }
-             
+
         }
     }
 }

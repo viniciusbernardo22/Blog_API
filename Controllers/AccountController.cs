@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using Blog.Data;
+﻿using Blog.Data;
 using Blog.Extensions;
 using Blog.Models;
 using Blog.Services;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecureIdentity.Password;
+using System.Text.RegularExpressions;
 
 namespace Blog.Controllers;
 
@@ -19,7 +19,7 @@ public class AccountController : ControllerBase
     [HttpPost("v1/account/register")]
     public async Task<ActionResult> Register(
         [FromBody] RegisterViewModel model,
-        [FromServices] EmailService emailService, 
+        [FromServices] EmailService emailService,
         [FromServices] BlogDataContext context)
     {
         if (!ModelState.IsValid)
@@ -40,10 +40,11 @@ public class AccountController : ControllerBase
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
 
-            emailService.Send(user.Name, user.Email, subject:"Teste de Desenvolvimento", body: $"Sua senha é <strong>{password}</strong>");
+            emailService.Send(user.Name, user.Email, subject: "Teste de Desenvolvimento", body: $"Sua senha é <strong>{password}</strong>");
             return Ok(new ResultViewModel<dynamic>(new
             {
-                user = user.Email, password
+                user = user.Email,
+                password
 
             }));
 
@@ -57,15 +58,15 @@ public class AccountController : ControllerBase
         {
             return StatusCode(500, new ResultViewModel<string>("Falha interna no servidor."));
         }
-        
+
     }
 
     [HttpPost("v1/account/login")]
-    public async Task<IActionResult> Login([FromServices] TokenService tokenService, 
-        [FromBody] LoginViewModel model, 
+    public async Task<IActionResult> Login([FromServices] TokenService tokenService,
+        [FromBody] LoginViewModel model,
         [FromServices] BlogDataContext context)
     {
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
             return BadRequest(new ResultViewModel<string>(ModelState.GetErrors()));
 
         var user = await context.Users
@@ -96,7 +97,7 @@ public class AccountController : ControllerBase
     [Authorize]
     [HttpPost("v1/account/upload-image")]
     public async Task<IActionResult> UploadImage(
-        [FromBody] UploadImageViewModel model, 
+        [FromBody] UploadImageViewModel model,
         [FromServices] BlogDataContext context)
     {
         var fileName = $"{Guid.NewGuid()}.jpg";
@@ -134,5 +135,5 @@ public class AccountController : ControllerBase
         }
 
     }
-    
+
 }
