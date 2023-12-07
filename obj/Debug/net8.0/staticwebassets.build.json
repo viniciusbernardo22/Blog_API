@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+vZ2fvCNUuj8Vdg4NH/9aEot5WXdKEQ0ArdkDnrH7w0=",
+  "Hash": "eJcfqOoYzGTyGgrFR447IDh6k04OSFy4sKXkec6S3rE=",
   "Source": "Blog",
   "BasePath": "_content/Blog",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\Usuario\\Desktop\\Courses\\Blog\\wwwroot\\images\\1218ddc1-fcf5-43d5-b336-49dad7aa6148.jpg",
+      "SourceId": "Blog",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Usuario\\Desktop\\Courses\\Blog\\wwwroot\\",
+      "BasePath": "_content/Blog",
+      "RelativePath": "images/1218ddc1-fcf5-43d5-b336-49dad7aa6148.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\1218ddc1-fcf5-43d5-b336-49dad7aa6148.jpg"
+    },
     {
       "Identity": "C:\\Users\\Usuario\\Desktop\\Courses\\Blog\\wwwroot\\images\\252293f2-8b6d-489a-895b-2a9c7a3f99a3.jpg",
       "SourceId": "Blog",
