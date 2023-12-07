@@ -1,8 +1,11 @@
-﻿using Blog.Data;
+﻿using System.Text.RegularExpressions;
+using Blog.Data;
 using Blog.Extensions;
 using Blog.Models;
 using Blog.Services;
 using Blog.ViewModels;
+using Blog.ViewModels.Accounts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecureIdentity.Password;
@@ -37,7 +40,7 @@ public class AccountController : ControllerBase
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
 
-            emailService.Send(user.Name, user.Email, subject:"Bem vindo e esperimente a linguiça", body: $"Sua senha é <strong>{password}</strong>");
+            emailService.Send(user.Name, user.Email, subject:"Teste de Desenvolvimento", body: $"Sua senha é <strong>{password}</strong>");
             return Ok(new ResultViewModel<dynamic>(new
             {
                 user = user.Email, password
@@ -90,19 +93,46 @@ public class AccountController : ControllerBase
 
     }
 
+    [Authorize]
+    [HttpPost("v1/account/upload-image")]
+    public async Task<IActionResult> UploadImage(
+        [FromBody] UploadImageViewModel model, 
+        [FromServices] BlogDataContext context)
+    {
+        var fileName = $"{Guid.NewGuid()}.jpg";
+        var data = new Regex(@"^data:image\/[a-z]+;base64,").Replace(model.Base64Image, string.Empty);
+        var bytes = Convert.FromBase64String(data);
+
+        try
+        {
+            await System.IO.File.WriteAllBytesAsync($"wwwroot/images/{fileName}", bytes);
+
+        }
+        catch
+        {
+            return StatusCode(500, $"Falha interna no servidor ao carregar a imagem {fileName}");
+        }
+
+        var user = await context.Users.FirstOrDefaultAsync(user => user.Email == User.Identity.Name);
+
+        if (user == null)
+            return NotFound(new ResultViewModel<string>("Usuário não encontrado, operação cancelada."));
+
+        user.Image = $"https://localhost:0000/images{fileName}";
 
 
+        try
+        {
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
 
-    //[Authorize(Roles = "user")]
-    //[HttpGet("v1/user")]
-    //public IActionResult GetUser() => Ok(User.Identity.Name);
+            return Ok(new ResultViewModel<string>(user.Image, null));
+        }
+        catch
+        {
+            return StatusCode(500, new ResultViewModel<string>("05XPTOIMG - Falha interna no servidor."));
+        }
+
+    }
     
-    //[Authorize(Roles = "author")]
-    //[HttpGet("v1/author")]
-    //public IActionResult GetAuthor() => Ok(User.Identity.Name);
-    
-    //[Authorize(Roles = "admin")]
-    //[HttpGet("v1/admin")]
-    //public IActionResult GetAdmin() => Ok(User.Identity.Name);
-
 }

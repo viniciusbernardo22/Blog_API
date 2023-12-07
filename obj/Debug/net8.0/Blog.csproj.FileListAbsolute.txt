@@ -1,5 +1,6 @@
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\appsettings.json
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Blog.staticwebassets.runtime.json
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Blog.exe
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Blog.deps.json
 C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Blog.runtimeconfig.json
