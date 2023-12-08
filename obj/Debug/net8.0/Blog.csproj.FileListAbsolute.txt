@@ -138,3 +138,8 @@ C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\refint\Blog.dll
 C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\Blog.pdb
 C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\Blog.genruntimeconfig.cache
 C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\ref\Blog.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Usuario\Desktop\Courses\Blog\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Usuario\Desktop\Courses\Blog\obj\Debug\net8.0\Blog.MvcApplicationPartsAssemblyInfo.cs
