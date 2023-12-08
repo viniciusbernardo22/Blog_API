@@ -4,14 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace Blog.Controllers
 {
     [ApiController]
-    [Route("")]
     public class HomeController : ControllerBase
     {
         [HttpGet("")]
-        [ApiKey]
-        public ActionResult Get()
+        //[ApiKey]
+        //HealthCheck
+        public ActionResult Get([FromServices] IConfiguration config)
         {
-            return Ok();
+            return Ok(new
+            {
+                Ambiente = config["Env"],
+                Versao = config["Versao"],
+                NomeApp = config["NomeApp"],
+                Host = Environment.MachineName,
+                DataHora = DateTime.Now,
+                Contato = "vini383@gmail.com"
+            });
         }
 
     }
