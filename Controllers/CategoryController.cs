@@ -5,6 +5,8 @@ using Blog.ViewModels;
 using Blog.ViewModels.Categories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using sib_api_v3_sdk.Model;
 
 namespace Blog.Controllers
 {
@@ -14,7 +16,9 @@ namespace Blog.Controllers
         private readonly string errorPrefix = "0CCT";
 
         [HttpGet("v1/categories")]
-        public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context)
+        public async Task<IActionResult> GetAsync(
+            [FromServices] BlogDataContext context
+            )
         {
 
             try

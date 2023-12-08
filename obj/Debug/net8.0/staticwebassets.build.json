@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "eJcfqOoYzGTyGgrFR447IDh6k04OSFy4sKXkec6S3rE=",
+  "Hash": "qZBBYwnP1HPMyk64ot5AyJ92B8l+bClu6Q/siqOQJ+c=",
   "Source": "Blog",
   "BasePath": "_content/Blog",
   "Mode": "Default",
@@ -91,6 +91,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\50d451c4-0314-4738-ab16-d16254302178.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Usuario\\Desktop\\Courses\\Blog\\wwwroot\\images\\5fdb2acc-7778-4a12-88c2-97025ebea9ed.jpg",
+      "SourceId": "Blog",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Usuario\\Desktop\\Courses\\Blog\\wwwroot\\",
+      "BasePath": "_content/Blog",
+      "RelativePath": "images/5fdb2acc-7778-4a12-88c2-97025ebea9ed.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\5fdb2acc-7778-4a12-88c2-97025ebea9ed.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Usuario\\Desktop\\Courses\\Blog\\wwwroot\\images\\c7498c00-497c-4415-b80a-0642dd91a80c.jpg",
+      "SourceId": "Blog",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Usuario\\Desktop\\Courses\\Blog\\wwwroot\\",
+      "BasePath": "_content/Blog",
+      "RelativePath": "images/c7498c00-497c-4415-b80a-0642dd91a80c.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\c7498c00-497c-4415-b80a-0642dd91a80c.jpg"
     }
   ]
 }
